@@ -1,10 +1,10 @@
-package com.example.demo;
+package com.example.MIMs;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MiBackEndApplicationTests {
+class MiMsApplicationTests {
 
 	@Test
 	void contextLoads() {
