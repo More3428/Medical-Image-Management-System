@@ -1,7 +1,7 @@
 
 services:
   database:
-    image: postgres:latest
+    image: postgres
     container_name: postgres-medical
     restart: always
     ports:
