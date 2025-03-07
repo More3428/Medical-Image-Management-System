@@ -19,16 +19,34 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
+        try{
+
+        
+        System.out.println("Register user: " + user.getUsername());
         String message = authService.registerUser(user);
+
+        // Authenticate immediately after registration
+        String token = authService.authenticate(user.getUsername(), user.getPassword());
         
         Map<String, String> response = new HashMap<>();
         response.put("message", message);
+        response.put("token", token);
         
+        System.out.println("Registration successfull, sending response: " + response);
         return ResponseEntity.ok(response);  // ✅ Returns JSON response
+    } catch (Exception e) {
+        System.err.println("Error during registration: " + e.getMessage());
+        e.printStackTrace();
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", "Registration failed: " + e.getMessage());
+        return ResponseEntity.status(500).body(errorResponse);
     }
-
-
+ }
+    @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> request) {
+        try{
+
+        
         String username = request.get("username");
         String password = request.get("password");
         
@@ -40,7 +58,16 @@ public class AuthController {
 
         Map<String, String> response = new HashMap<>();
         response.put("token", token);
-        
-        return ResponseEntity.ok(response);  // ✅ Returns JSON response
+        System.out.println("Login successful, sending token: " + response);
+        return ResponseEntity.ok(response);
+        }
+        catch (Exception e) {
+            System.err.println("Error during login: " + e.getMessage());
+            e.printStackTrace();
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Login failed: " + e.getMessage());
+            return ResponseEntity.status(401).body(errorResponse);
+        }
+
     }
 }
