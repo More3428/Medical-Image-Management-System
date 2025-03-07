@@ -6,12 +6,28 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY_STRING = "767d705d2556c600c3f75c4d3ec73e773dd6e82499982d2c0ef3f080d1ae4b26";  // Must be at least 32 characters
-    private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(Base64.getDecoder().decode(SECRET_KEY_STRING));
+    private final String SECRET_KEY_STRING;
+    private final SecretKey SECRET_KEY;
+
+    public JwtUtil() {
+        SECRET_KEY_STRING = System.getenv("JWT_SECRET");
+
+        if (SECRET_KEY_STRING == null || SECRET_KEY_STRING.trim().isEmpty()) {
+            throw new IllegalStateException("JWT_SECRET environment variable is not set. Please configure it before running the application.");
+        }
+
+        try {
+            byte[] decodedKey = Base64.getDecoder().decode(SECRET_KEY_STRING.getBytes(StandardCharsets.UTF_8));
+            this.SECRET_KEY = Keys.hmacShaKeyFor(decodedKey);
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to initialize JWT secret key: " + e.getMessage(), e);
+        }
+    }
 
     public String generateToken(String username) {
         return Jwts.builder()

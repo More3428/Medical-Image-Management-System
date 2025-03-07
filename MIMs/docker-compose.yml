@@ -28,6 +28,7 @@ services:
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin
       SPRING_PROFILES_ACTIVE: dev
+      JWT_SECRET: wJDJ5ad9nXY+8ZT/NnWuw1bZqfCZ7YZwXedHnUaaEbo=
 
 volumes:
   postgres_data:
