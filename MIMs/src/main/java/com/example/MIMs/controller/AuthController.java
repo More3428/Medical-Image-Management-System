@@ -18,21 +18,20 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
-        try{
+public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
+    try {
+        System.out.println("Registering user: " + user.getUsername());
 
-        
-        System.out.println("Register user: " + user.getUsername());
         String message = authService.registerUser(user);
 
-        // Authenticate immediately after registration
+        // Authenticate the user after registration to generate a token
         String token = authService.authenticate(user.getUsername(), user.getPassword());
-        
+
         Map<String, String> response = new HashMap<>();
         response.put("message", message);
         response.put("token", token);
-        
-        System.out.println("Registration successfull, sending response: " + response);
+
+        System.out.println("Registration successful, sending response: " + response);
         return ResponseEntity.ok(response);  // ✅ Returns JSON response
     } catch (Exception e) {
         System.err.println("Error during registration: " + e.getMessage());
@@ -41,7 +40,7 @@ public class AuthController {
         errorResponse.put("error", "Registration failed: " + e.getMessage());
         return ResponseEntity.status(500).body(errorResponse);
     }
- }
+}
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> request) {
         try{
