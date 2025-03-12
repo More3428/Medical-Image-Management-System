@@ -17,14 +17,25 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.crypto.SecretKey;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Collections;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
     private final String SECRET_KEY_STRING = System.getenv("JWT_SECRET");
-    private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET_KEY_STRING.getBytes());
+    private final SecretKey SECRET_KEY;
 
+    public JwtFilter() {
+    
+    
+        if(SECRET_KEY_STRING == null || SECRET_KEY_STRING.trim().isEmpty()){
+            throw new IllegalStateException("JWT_SECRET enviornment variable is not set.");
+        }
+
+        byte[] decodedKey = Base64.getDecoder().decode(SECRET_KEY_STRING);
+        this.SECRET_KEY = Keys.hmacShaKeyFor(decodedKey); 
+    }   
     @Override
     protected void doFilterInternal(@SuppressWarnings("null") HttpServletRequest request, @SuppressWarnings("null") HttpServletResponse response, @SuppressWarnings("null") FilterChain chain)
             throws ServletException, IOException {

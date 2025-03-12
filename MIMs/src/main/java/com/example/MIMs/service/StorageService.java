@@ -17,8 +17,6 @@ import com.example.MIMs.repository.StorageRepository;
 @Service
 public class StorageService {
 
-    @Autowired
-    private StorageRepository repository;
 
     @Autowired
     private FileDataRepository fileDataRepository;
