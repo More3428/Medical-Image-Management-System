@@ -34,7 +34,7 @@ services:
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin
       SPRING_PROFILES_ACTIVE: dev
-      JWT_SECRET: wJDJ5ad9nXY+8ZT/NnWuw1bZqfCZ7YZwXedHnUaaEbo=
+      JWT_SECRET: 06aa70fda6fbbb78be190baaae7122d6a0accc24c717bcdd6d845d59f1fbcc524d62f8d75615cf0fcce6bae4dd48af41d657a85cf6b5518ce33b4638f28b0f84
     volumes:
       - ./logs:/app/logs # Mount a volume for application logs
 

@@ -34,7 +34,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())  // ✅ Disable CSRF for API requests
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/home", "/public/**, /image").permitAll()  // ✅ Allow homepage & public routes
+                .requestMatchers("/", "/home", "/public/**", "/image").permitAll()  // ✅ Allow homepage & public routes
                 .requestMatchers("/auth/**").permitAll()  // ✅ Allow `/auth/register` and `/auth/login`
                 .requestMatchers("/api/protected").authenticated()  // 🔒 Protect `/api/protected`
                 .anyRequest().authenticated()  // 🔒 All other requests require authentication
