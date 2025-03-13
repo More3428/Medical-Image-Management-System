@@ -20,7 +20,7 @@ public class StorageService {
     @Autowired
     private FileDataRepository fileDataRepository;
 
-    private final String FOLDER_PATH="C:/Users/Andre/Desktop/MyMiMFiles";
+    private final String FOLDER_PATH="C:/Users/Andre/Desktop/MyMiMFiles/";
 
     public String uploadImageToFileSystem(MultipartFile file) throws IOException {
         String filePath=FOLDER_PATH+file.getOriginalFilename();
