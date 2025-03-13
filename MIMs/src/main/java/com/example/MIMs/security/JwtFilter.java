@@ -19,6 +19,7 @@ import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Date;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -41,9 +42,11 @@ public class JwtFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
+        Date expirationDate = new Date(1741834891 * 1000L);
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
+            System.out.println("Token: " + token);
             try {
                 Claims claims = Jwts.parserBuilder()
                         .setSigningKey(SECRET_KEY)
@@ -51,7 +54,11 @@ public class JwtFilter extends OncePerRequestFilter {
                         .parseClaimsJws(token)
                         .getBody();
 
-                String username = claims.getSubject();
+                String username = claims.getSubject(); 
+                System.out.println("Claims: " + claims);
+                System.out.println("Token expires at: " + expirationDate);
+                System.out.println("Username: " + username);
+
 
                 if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                     UserDetails userDetails = new User(username, "", Collections.emptyList());
@@ -60,6 +67,7 @@ public class JwtFilter extends OncePerRequestFilter {
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
+                    System.out.println("SecurityContextHolder set with authentication: " + authentication);
                 }
             } catch (Exception e) {
                 System.out.println("Invalid JWT Token: " + e.getMessage());

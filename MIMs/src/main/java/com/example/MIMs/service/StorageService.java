@@ -10,9 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.MIMs.entity.FileData;
-import com.example.MIMs.entity.ImageData;
 import com.example.MIMs.repository.FileDataRepository;
-import com.example.MIMs.repository.StorageRepository;
+
 
 @Service
 public class StorageService {
@@ -21,7 +20,7 @@ public class StorageService {
     @Autowired
     private FileDataRepository fileDataRepository;
 
-    private final String FOLDER_PATH="C:/Users/Andre/Desktop/MyMiMFiles";
+    private final String FOLDER_PATH="C:/Users/Andre/Desktop/MyMiMFiles/";
 
     public String uploadImageToFileSystem(MultipartFile file) throws IOException {
         String filePath=FOLDER_PATH+file.getOriginalFilename();
