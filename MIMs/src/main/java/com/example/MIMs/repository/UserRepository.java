@@ -1,8 +1,9 @@
 package com.example.MIMs.repository;
 
-import com.example.MIMs.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import com.example.MIMs.entity.User;
 
 import java.util.Optional;
 
