@@ -1,6 +1,6 @@
 package com.example.MIMs.controller;
 
-import com.example.MIMs.model.User;
+import com.example.MIMs.entity.User;
 import com.example.MIMs.service.AuthService;
 
 import java.util.HashMap;

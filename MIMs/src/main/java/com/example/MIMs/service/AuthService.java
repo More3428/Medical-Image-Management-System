@@ -1,6 +1,6 @@
 package com.example.MIMs.service;
 
-import com.example.MIMs.model.User;
+import com.example.MIMs.entity.User;
 import com.example.MIMs.repository.UserRepository;
 import com.example.MIMs.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;

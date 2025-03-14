@@ -1,4 +1,4 @@
-package com.example.MIMs.model;
+package com.example.MIMs.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
