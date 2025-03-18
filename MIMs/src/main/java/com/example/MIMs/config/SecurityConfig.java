@@ -36,7 +36,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/home", "/public/**", "/image").permitAll()  // ✅ Allow homepage & public routes
                 .requestMatchers("/auth/**").permitAll()  // ✅ Allow `/auth/register` and `/auth/login`
-                .requestMatchers("/api/protected").authenticated()  // 🔒 Protect `/api/protected`
+                .requestMatchers("/api/protected", "/edit/**").authenticated()  // 🔒 Protect `/api/protected`
                 .anyRequest().authenticated()  // 🔒 All other requests require authentication
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);  // ✅ Apply JWT filter
